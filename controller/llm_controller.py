@@ -48,6 +48,10 @@ class LLMController():
                 print_t("[C] Start Gear robot car...")
                 from .gear_wrapper import GearWrapper
                 self.drone: RobotWrapper = GearWrapper()
+            case RobotType.AIRSIM:
+                print_t("[C] Start AirSim drone...")
+                from .airsim_wrapper import AirSimWrapper
+                self.drone: RobotWrapper = AirSimWrapper()
             case _:
                 print_t("[C] Start virtual drone...")
                 self.drone: RobotWrapper = VirtualRobotWrapper()
@@ -84,6 +88,8 @@ class LLMController():
         type_folder_name = 'tello'
         if robot_type == RobotType.GEAR:
             type_folder_name = 'gear'
+        elif robot_type == RobotType.AIRSIM:
+            type_folder_name = 'airsim'
         with open(os.path.join(CURRENT_DIR, f"assets/{type_folder_name}/high_level_skills.json"), "r") as f:
             json_data = json.load(f)
             for skill in json_data:

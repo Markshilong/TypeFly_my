@@ -40,7 +40,7 @@ class TypeFly:
         with self.ui:
             gr.HTML(open(os.path.join(CURRENT_DIR, 'header.html'), 'r').read())
             gr.HTML(open(os.path.join(CURRENT_DIR, 'drone-pov.html'), 'r').read())
-            gr.ChatInterface(self.process_message, retry_btn=None, fill_height=False, examples=default_sentences).queue()
+            gr.ChatInterface(self.process_message, fill_height=False, examples=default_sentences).queue()
             # TODO: Add checkbox to switch between llama3 and gpt4
             # gr.Checkbox(label='Use llama3', value=False).select(self.checkbox_llama3)
 
@@ -132,6 +132,7 @@ if __name__ == "__main__":
     parser.add_argument('--use_virtual_robot', action='store_true')
     parser.add_argument('--use_http', action='store_true')
     parser.add_argument('--gear', action='store_true')
+    parser.add_argument('--airsim', action='store_true')
 
     args = parser.parse_args()
     robot_type = RobotType.TELLO
@@ -139,5 +140,7 @@ if __name__ == "__main__":
         robot_type = RobotType.VIRTUAL
     elif args.gear:
         robot_type = RobotType.GEAR
+    elif args.airsim:
+        robot_type = RobotType.AIRSIM
     typefly = TypeFly(robot_type, use_http=args.use_http)
     typefly.run()

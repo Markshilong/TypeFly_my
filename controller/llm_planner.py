@@ -18,6 +18,8 @@ class LLMPlanner():
         type_folder_name = 'tello'
         if robot_type == RobotType.GEAR:
             type_folder_name = 'gear'
+        elif robot_type == RobotType.AIRSIM:
+            type_folder_name = 'airsim'
 
         # read prompt from txt
         with open(os.path.join(CURRENT_DIR, f"./assets/{type_folder_name}/prompt_plan.txt"), "r") as f:
